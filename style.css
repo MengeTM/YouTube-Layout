@@ -1,0 +1,63 @@
+ytd-watch-grid #blocker-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-auto-flow: dense;
+    padding: 0px 10px 0px 0px !important;
+}
+
+ytd-watch-grid ytd-rich-item-renderer {
+    margin-right: 0px !important;
+    margin-left: var(--ytd-rich-grid-item-margin) !important;
+}
+
+    ytd-watch-grid ytd-rich-item-renderer #dismissible {
+        flex-direction: row !important;
+    }
+
+    ytd-watch-grid ytd-rich-item-renderer #thumbnail {
+        flex: none !important;
+        width: 180px !important;
+    }
+
+    ytd-watch-grid ytd-rich-item-renderer #avatar-link, ytd-watch-grid ytd-rich-item-renderer #metadata-line span ~ span, ytd-watch-grid ytd-rich-item-renderer #attached-survey {
+        display: none !important;
+    }
+
+    ytd-watch-grid ytd-rich-item-renderer #meta {
+        flex: auto;
+        padding: 0px 12px 0px 8px !important;
+    }
+
+    ytd-watch-grid ytd-rich-item-renderer h3 {
+        margin: 0px 8px 0px 4px !important;
+    }
+
+ytd-watch-grid #secondary-inner {
+    margin-top: 10px !important;
+    animation: none !important;
+    width: 100% !important;
+}
+
+ytd-watch-grid #fixed-secondary {
+    position: relative !important;
+    top: unset !important;
+    left: unset !important;
+    right: unset !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: hidden !important;
+    max-height: calc(100vh - var(--ytd-watch-flexy-masthead-height) - var(--ytd-watch-grid-columns-top-margins) - var(--ytd-watch-grid-horizontal-page-margins)) !important;
+    margin-bottom: 10px !important;
+    animation: slide-up .3s ease-out backwards !important;
+}
+
+ytd-playlist-panel-renderer, ytd-engagement-panel-section-list-renderer {
+    position: relative !important;
+    top: unset !important;
+    bottom: unset !important;
+    max-height: calc(100vh - var(--ytd-watch-flexy-masthead-height) - var(--ytd-watch-grid-columns-top-margins) - var(--ytd-watch-grid-horizontal-page-margins)) !important;
+}
+
+ytd-engagement-panel-section-list-renderer {
+    height: calc(100vh - var(--ytd-watch-flexy-masthead-height) - var(--ytd-watch-grid-columns-top-margins) - var(--ytd-watch-grid-horizontal-page-margins)) !important;
+}
