@@ -54,38 +54,6 @@ class YouTubeOldLayout {
             secondaryFixed.after(chat);
         }
     }
-
-    /**
-     * Gets grid for videos
-     * @returns Grid for videos
-     */
-    getGrid() {
-        const grid = document.querySelector("ytd-watch-grid ytd-rich-grid-renderer");
-
-        if (grid) {
-            let blockerGrid = grid.querySelector("#blocker-grid");
-            if (!blockerGrid) {
-                blockerGrid = document.createElement("div");
-                blockerGrid.id = "blocker-grid";
-                grid.prepend(blockerGrid);
-            }
-
-            return blockerGrid;
-        }
-        
-        return null;
-    }
-
-    /**
-     * Adds Video to grid
-     * @param {HTMLElement} video YouTube video 
-     */
-    addVideo(video) {
-        const grid = this.getGrid();
-        if (grid) {
-            grid.appendChild(video);
-        }
-    }
     
     pageObserver = new MutationObserver((mList) => {
         for (let m of mList) {
@@ -101,12 +69,6 @@ class YouTubeOldLayout {
                 }
 
                 switch (node.nodeName.toLowerCase()) {
-                    case "ytd-rich-item-renderer":
-                        const grid = this.getGrid();
-                        if (grid && !grid.contains(node) && node.closest("ytd-watch-grid")) {
-                            this.addVideo(node);
-                        }
-                    break;
                     case "ytd-menu-renderer":
                         this.moveButtons();
                         break;
