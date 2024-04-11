@@ -3,11 +3,11 @@ class YouTubeOldLayout {
     constructor() {
         console.log("Loaded Old YouTube Layout");
 
-        this.setLayout();
-        this.moveButtons();
-
         const app = document.documentElement;
         this.pageObserver.observe(app, { childList: true, subtree: true, attributes: false });
+
+        this.setLayout();
+        this.moveButtons();
     }
 
     /**
@@ -91,8 +91,8 @@ class YouTubeOldLayout {
         for (let m of mList) {
             for (let node of m.addedNodes) {
                 switch (node.id) {
-                    case "primary":
-                    case "secondary":
+                    case "bottom-grid":
+                    case "secondary-inner":
                         this.setLayout();
                         break;
                     case "chat-container":
