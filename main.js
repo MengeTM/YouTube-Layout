@@ -4,6 +4,7 @@ class YouTubeOldLayout {
         console.log("Loaded Old YouTube Layout");
 
         this.setLayout();
+        this.moveButtons();
 
         const app = document.documentElement;
         this.pageObserver.observe(app, { childList: true, subtree: true, attributes: false });
@@ -20,15 +21,10 @@ class YouTubeOldLayout {
             const bottomGrid = document.querySelector("ytd-watch-grid #bottom-grid");
             const secondaryInner = secondary.querySelector("#secondary-inner");
 
-            secondaryInner.replaceWith(bottomGrid);
-            below.appendChild(secondaryInner);
-
-            this.moveButtons();
-
-            const bb = secondary.getBoundingClientRect();
-            const fixedSecondary = document.querySelector("ytd-watch-grid ytd-fixed-secondary");
-            fixedSecondary.width = bb.width;
-            fixedSecondary.left = bb.left;
+            if (bottomGrid && secondaryInner) {
+                secondaryInner.replaceWith(bottomGrid);
+                below.appendChild(secondaryInner);
+            }
         }
     }
 
@@ -36,11 +32,26 @@ class YouTubeOldLayout {
      * Moves buttons
      */
     moveButtons() {
-        const owner = document.querySelector("#secondary-inner ytd-video-owner-renderer");
-        const bottomActions = document.querySelector("#secondary-inner #bottom-actions");
+        const owner = document.querySelector("ytd-watch-grid #secondary-inner ytd-video-owner-renderer");
+        const bottomActions = document.querySelector("ytd-watch-grid #secondary-inner #bottom-actions");
         if (owner && bottomActions) {
-            owner.after(bottomActions.querySelector("ytd-menu-renderer"));
-            bottomActions.remove();
+            const menu = bottomActions.querySelector("ytd-menu-renderer");
+            if (menu) {
+                owner.after(bottomActions.querySelector("ytd-menu-renderer"));
+                bottomActions.remove();
+            }
+        }
+    }
+
+    /**
+     * Moves chat button to secondary
+     */
+    moveChat() {
+        const chat = document.querySelector("ytd-watch-grid #primary #chat-container");
+        const secondary = document.querySelector("ytd-watch-grid #secondary");
+        if (chat && secondary && !secondary.contains(chat)) {
+            const secondaryFixed = secondary.querySelector("#fixed-secondary");
+            secondaryFixed.after(chat);
         }
     }
 
@@ -51,14 +62,18 @@ class YouTubeOldLayout {
     getGrid() {
         const grid = document.querySelector("ytd-watch-grid ytd-rich-grid-renderer");
 
-        let blockerGrid = grid.querySelector("#blocker-grid");
-        if (!blockerGrid) {
-            blockerGrid = document.createElement("div");
-            blockerGrid.id = "blocker-grid";
-            grid.prepend(blockerGrid);
-        }
+        if (grid) {
+            let blockerGrid = grid.querySelector("#blocker-grid");
+            if (!blockerGrid) {
+                blockerGrid = document.createElement("div");
+                blockerGrid.id = "blocker-grid";
+                grid.prepend(blockerGrid);
+            }
 
-        return blockerGrid;
+            return blockerGrid;
+        }
+        
+        return null;
     }
 
     /**
@@ -67,18 +82,34 @@ class YouTubeOldLayout {
      */
     addVideo(video) {
         const grid = this.getGrid();
-        grid.appendChild(video);
+        if (grid) {
+            grid.appendChild(video);
+        }
     }
     
     pageObserver = new MutationObserver((mList) => {
         for (let m of mList) {
             for (let node of m.addedNodes) {
-                if (node.id && node.id == "primary" || node.id == "secondary") {
-                    this.setLayout();
-                } else if (node.nodeName.toLowerCase() == "ytd-rich-item-renderer" && !node.hasAttribute("video-layout")) {
-                    node.setAttribute("video-layout", "");
-                    
-                    this.addVideo(node);
+                switch (node.id) {
+                    case "primary":
+                    case "secondary":
+                        this.setLayout();
+                        break;
+                    case "chat-container":
+                        this.moveChat();
+                        break
+                }
+
+                switch (node.nodeName.toLowerCase()) {
+                    case "ytd-rich-item-renderer":
+                        const grid = this.getGrid();
+                        if (grid && !grid.contains(node) && node.closest("ytd-watch-grid")) {
+                            this.addVideo(node);
+                        }
+                    break;
+                    case "ytd-menu-renderer":
+                        this.moveButtons();
+                        break;
                 }
             }
         }

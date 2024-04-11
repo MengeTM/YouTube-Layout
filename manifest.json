@@ -2,18 +2,12 @@
 
   "manifest_version": 2,
   "name": "Swap YouTube Comments and Videos (Old Layout)",
-  "version": "1.0",
-
-  "applications": {
-    "gecko": {
-      "strict_min_version": "57.0"
-    }
-  },
+  "version": "1.1",
 
   "description": "Do you dislike the new YouTube layout? This add-on will swap the comments and videos back to where they were in the old layout from before 2024.",
 
   "icons": {
-    "48": "image.png"
+    "128": "image.png"
   },
 
   "content_scripts": [
