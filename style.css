@@ -2,6 +2,10 @@ ytd-watch-grid #secondary {
     --ytd-watch-flexy-sidebar-width: 380px;
 }
 
+ytd-watch-grid #secondary #bottom-grid {
+    overflow-x: unset !important;
+}
+
 ytd-watch-grid #secondary ytd-rich-grid-renderer {
     margin-left: 0px !important;
     margin-right: 0px !important;
@@ -12,9 +16,9 @@ ytd-watch-grid #secondary ytd-rich-grid-renderer {
     }
 
 ytd-watch-grid #secondary ytd-rich-item-renderer {
+    width: 100% !important;
     margin-right: 0px !important;
     margin-left: 0px !important;
-    overflow: hidden;
 }
 
     ytd-watch-grid #secondary ytd-rich-item-renderer #dismissible {
