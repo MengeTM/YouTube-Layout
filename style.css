@@ -13,7 +13,12 @@ ytd-watch-grid #secondary ytd-rich-grid-renderer {
 
     ytd-watch-grid #secondary ytd-rich-grid-renderer #contents {
         padding: 0px !important;
+        margin: 0px !important;
     }
+
+ytd-watch-grid #secondary ytd-rich-section-renderer #content {
+    margin: 0px !important;
+}
 
 ytd-watch-grid #secondary ytd-rich-item-renderer {
     width: 100% !important;
@@ -22,6 +27,7 @@ ytd-watch-grid #secondary ytd-rich-item-renderer {
 }
 
     ytd-watch-grid #secondary ytd-rich-item-renderer #dismissible {
+        display: flex !important;
         flex-direction: row !important;
     }
 
@@ -40,6 +46,10 @@ ytd-watch-grid #secondary ytd-rich-item-renderer {
         width: 168px !important;
         height: 94px !important;
         margin-right: 8px !important;
+    }
+
+    ytd-watch-grid #secondary ytd-rich-item-renderer ytd-thumbnail::before {
+        display: unset !important;
     }
 
     ytd-watch-grid #secondary ytd-rich-item-renderer #avatar-link, ytd-watch-grid #secondary ytd-rich-item-renderer #attached-survey, ytd-watch-grid #secondary ytd-rich-item-renderer #details #buttons {
