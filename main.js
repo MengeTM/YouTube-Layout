@@ -72,6 +72,17 @@ class YouTubeOldLayout {
             this.updateMetadata();
         }
     }
+
+    /**
+     * Moves extend playlist button to secondary
+     */
+    movePlaylist() {
+        const playlist = document.querySelector("ytd-watch-grid #secondary-inner #playlist");
+        const secondary = document.querySelector("ytd-watch-grid #secondary");
+        if (secondary && playlist && !secondary.contains(playlist)) {
+            secondary.prepend(playlist);
+        }
+    }
     
     pageObserver = new MutationObserver((mList) => {
         for (let m of mList) {
@@ -83,7 +94,10 @@ class YouTubeOldLayout {
                         break;
                     case "chat-container":
                         this.moveChat();
-                        break
+                        break;
+                    case "playlist":
+                        this.movePlaylist();
+                        break;
                     case "owner":
                         this.updateMetadata();
                         break;
