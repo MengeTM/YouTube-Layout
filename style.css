@@ -200,9 +200,14 @@ ytd-watch-grid #secondary #fixed-secondary {
     animation: slide-up .3s ease-out backwards !important;
 }
 
+/* YouTube chat */
+ytd-watch-grid #secondary #chat-container {
+    position: relative !important;
+}
+
 /* YouTube live chat */
-ytd-watch-grid #secondary #fixed-secondary #chat-container {
-    position: unset !important;
+ytd-watch-grid #secondary #chat-container:has(ytd-live-chat-frame:not([collapsed])) {
+    margin-bottom: 10px !important;
 }
 
 /* Panels that would be fixed when scrolling -> not fixed when scrolling  */

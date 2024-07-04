@@ -67,7 +67,7 @@ class YouTubeOldLayout {
     moveChat() {
         const chat = document.querySelector("ytd-watch-grid #chat-container");
         const secondary = document.querySelector("ytd-watch-grid #secondary");
-        if (chat && secondary && !secondary.contains(chat)) {
+        if (chat && secondary && secondary !== chat.parentElement) {
             secondary.prepend(chat);
             this.updateMetadata();
         }
@@ -79,7 +79,7 @@ class YouTubeOldLayout {
     movePlaylist() {
         const playlist = document.querySelector("ytd-watch-grid #secondary-inner #playlist");
         const secondary = document.querySelector("ytd-watch-grid #secondary");
-        if (secondary && playlist && !secondary.contains(playlist)) {
+        if (secondary && playlist && !secondary !== playlist.parentElement) {
             secondary.prepend(playlist);
         }
     }
