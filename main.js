@@ -6,14 +6,15 @@ class YouTubeOldLayout {
         const app = document.documentElement;
         this.pageObserver.observe(app, { childList: true, subtree: true, attributes: false });
 
-        this.setLayout();
+        this.updateLayout();
         this.moveButtons();
+        this.updateMetadata();
     }
 
     /**
      * Sets the layout of YouTube video player to old layout
      */
-    async setLayout() {
+    async updateLayout() {
         const below = document.querySelector("ytd-watch-grid #primary #below");
         const secondary = document.querySelector("ytd-watch-grid #secondary");
     
@@ -24,6 +25,23 @@ class YouTubeOldLayout {
             if (bottomGrid && secondaryInner) {
                 secondaryInner.replaceWith(bottomGrid);
                 below.appendChild(secondaryInner);
+            }
+        }
+    }
+
+    /**
+     * Moves title out of description, and owner above description
+     */
+    updateMetadata() {
+        const metadata = document.querySelector("ytd-watch-grid #secondary-inner ytd-watch-metadata");
+        if (metadata) {
+            const description = metadata.querySelector("#title");
+            const title = metadata.querySelector("#title h1");
+            const owner = metadata.querySelector("#owner");
+
+            if (description && title && owner) {
+                metadata.prepend(owner);
+                metadata.prepend(title);
             }
         }
     }
@@ -47,11 +65,11 @@ class YouTubeOldLayout {
      * Moves chat button to secondary
      */
     moveChat() {
-        const chat = document.querySelector("ytd-watch-grid #primary #chat-container");
+        const chat = document.querySelector("ytd-watch-grid #chat-container");
         const secondary = document.querySelector("ytd-watch-grid #secondary");
         if (chat && secondary && !secondary.contains(chat)) {
-            const secondaryFixed = secondary.querySelector("#fixed-secondary");
-            secondaryFixed.after(chat);
+            secondary.prepend(chat);
+            this.updateMetadata();
         }
     }
     
@@ -61,16 +79,22 @@ class YouTubeOldLayout {
                 switch (node.id) {
                     case "bottom-grid":
                     case "secondary-inner":
-                        this.setLayout();
+                        this.updateLayout();
                         break;
                     case "chat-container":
                         this.moveChat();
                         break
+                    case "owner":
+                        this.updateMetadata();
+                        break;
                 }
 
                 switch (node.nodeName.toLowerCase()) {
                     case "ytd-menu-renderer":
                         this.moveButtons();
+                        break;
+                    case "ytd-watch-metadata":
+                        this.updateMetadata();
                         break;
                 }
             }

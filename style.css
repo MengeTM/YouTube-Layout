@@ -1,5 +1,5 @@
 ytd-watch-grid #secondary {
-    --ytd-watch-flexy-sidebar-width: 380px;
+    --ytd-watch-flexy-sidebar-width: 426px;
 }
 
 ytd-watch-grid #secondary #bottom-grid {
@@ -52,12 +52,13 @@ ytd-watch-grid #secondary ytd-rich-item-renderer {
         display: unset !important;
     }
 
-    ytd-watch-grid #secondary ytd-rich-item-renderer #avatar-link, ytd-watch-grid #secondary ytd-rich-item-renderer #attached-survey, ytd-watch-grid #secondary ytd-rich-item-renderer #details #buttons {
+    ytd-watch-grid #secondary ytd-rich-item-renderer #avatar-container, ytd-watch-grid #secondary ytd-rich-item-renderer #avatar-link, ytd-watch-grid #secondary ytd-rich-item-renderer #attached-survey, ytd-watch-grid #secondary ytd-rich-item-renderer #details #buttons {
         display: none !important;
     }
 
     ytd-watch-grid #secondary ytd-rich-item-renderer #details {
-        width: 100% !important;
+        width: 10px !important;
+        flex: auto !important;
     }
 
     ytd-watch-grid #secondary ytd-rich-item-renderer #meta {
@@ -92,10 +93,44 @@ ytd-watch-grid #primary #secondary-inner {
     margin-top: 10px !important;
     animation: none !important;
     width: 100% !important;
+    border: none !important;
+    padding: 0px !important;
+    height: auto;
+}
+
+ytd-watch-grid #primary #secondary-inner ytd-watch-metadata h1 {
+    font-size: 2rem;
+    line-height: 2.8rem;
 }
 
 ytd-watch-grid #secondary #secondary-inner {
     display: none !important;
+}
+
+ytd-watch-grid #secondary-inner ytd-watch-metadata #owner {
+    margin-top: 12px !important;
+}
+
+ytd-watch-grid #secondary-inner ytd-watch-metadata #owner:hover {
+    cursor: unset !important;
+    background-color: unset !important;
+    box-shadow: unset !important;
+}
+
+ytd-watch-grid #secondary-inner ytd-watch-metadata #title {
+    margin-top: 12px !important;
+    background-color: var(--yt-spec-badge-chip-background) !important;
+    padding: 12px !important;
+    border-radius: 12px !important;
+}
+
+ytd-watch-grid #secondary-inner ytd-watch-metadata #title:hover {
+    background-color: var(--yt-spec-badge-chip-background) !important;
+    box-shadow: unset !important;
+}
+
+ytd-watch-grid #secondary-inner ytd-watch-metadata ytd-watch-info-text {
+    margin-bottom: 0px !important;
 }
 
 ytd-watch-grid #primary #subscribe-button {
@@ -104,6 +139,10 @@ ytd-watch-grid #primary #subscribe-button {
 
 ytd-watch-grid #primary ytd-menu-renderer {
     width: auto !important;
+}
+
+ytd-watch-grid #fixed-columns-secondary {
+    position: absolute !important;
 }
 
 ytd-watch-grid #secondary #fixed-secondary {
@@ -117,11 +156,16 @@ ytd-watch-grid #secondary #fixed-secondary {
     animation: slide-up .3s ease-out backwards !important;
 }
 
+ytd-watch-grid #secondary #fixed-secondary #chat-container {
+    position: unset !important;
+}
+
 ytd-watch-grid ytd-playlist-panel-renderer, ytd-watch-grid ytd-engagement-panel-section-list-renderer, ytd-watch-grid #secondary #chat {
     position: relative !important;
     top: unset !important;
     bottom: unset !important;
     margin-bottom: 10px !important;
+    z-index: 10;
     max-height: calc(100vh - var(--ytd-watch-flexy-masthead-height) - var(--ytd-watch-grid-columns-top-margins) - var(--ytd-watch-grid-horizontal-page-margins)) !important;
 }
 
