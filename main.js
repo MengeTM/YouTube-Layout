@@ -30,7 +30,7 @@ class YouTubeOldLayout {
     }
 
     /**
-     * Moves title out of description, and owner above description
+     * Moves title out of description, and owner (subscribe button) above description
      */
     updateMetadata() {
         const metadata = document.querySelector("ytd-watch-grid #secondary-inner ytd-watch-metadata");
@@ -47,7 +47,7 @@ class YouTubeOldLayout {
     }
 
     /**
-     * Moves buttons
+     * Moves subscribe buttons to one row
      */
     moveButtons() {
         const owner = document.querySelector("ytd-watch-grid #secondary-inner ytd-video-owner-renderer");
@@ -62,7 +62,7 @@ class YouTubeOldLayout {
     }
 
     /**
-     * Moves chat button to secondary
+     * Moves extend chat button to secondary
      */
     moveChat() {
         const chat = document.querySelector("ytd-watch-grid #chat-container");
@@ -92,9 +92,6 @@ class YouTubeOldLayout {
                 switch (node.nodeName.toLowerCase()) {
                     case "ytd-menu-renderer":
                         this.moveButtons();
-                        break;
-                    case "ytd-watch-metadata":
-                        this.updateMetadata();
                         break;
                 }
             }

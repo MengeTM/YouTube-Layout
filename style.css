@@ -1,46 +1,64 @@
+/* Width of the videos sidebar, needs to be <500 for only one column of videos */
 ytd-watch-grid #secondary {
     --ytd-watch-flexy-sidebar-width: 426px;
 }
 
+/* comments section (bottom) */
 ytd-watch-grid #secondary #bottom-grid {
     overflow-x: unset !important;
 }
 
+/* YouTube Grid Layout containing video thumbnails (ytd-rich-item-renderer) */
 ytd-watch-grid #secondary ytd-rich-grid-renderer {
     margin-left: 0px !important;
     margin-right: 0px !important;
 }
 
+    /* Div containing all video thumbnails */
     ytd-watch-grid #secondary ytd-rich-grid-renderer #contents {
         padding: 0px !important;
         margin: 0px !important;
     }
 
+/* YouTube section */
 ytd-watch-grid #secondary ytd-rich-section-renderer #content {
     margin: 0px !important;
 }
 
+/* Disable div squeezing the video during fullscreen for chat-container */
+ytd-watch-grid #squeezeback-constraining-container {
+    display: none !important;
+}
+
+/* 
+* YouTube video thumbnail
+* Layout of the thumbnail is updated so that title and author are on the right of thumbnail
+*/
 ytd-watch-grid #secondary ytd-rich-item-renderer {
     width: 100% !important;
     margin-right: 0px !important;
     margin-left: 0px !important;
 }
 
+    /* Div containing all of YouTube video thumbnail */
     ytd-watch-grid #secondary ytd-rich-item-renderer #dismissible {
         display: flex !important;
         flex-direction: row !important;
     }
 
+    /* Resize video title */
     ytd-watch-grid #secondary ytd-rich-item-renderer #video-title {
         font-size: 1.4rem !important;
         line-height: 2rem !important;
     }
 
+    /* Resize channel name and video info */
     ytd-watch-grid #secondary ytd-rich-item-renderer #channel-name, ytd-watch-grid #secondary ytd-rich-item-renderer #metadata-line {
         font-size: 1.2rem !important;
         line-height: 1.8rem !important;
     }
 
+    /* Video thumbnail */
     ytd-watch-grid #secondary ytd-rich-item-renderer ytd-thumbnail, ytd-watch-grid #secondary ytd-rich-item-renderer ytd-playlist-thumbnail {
         flex: none !important;
         width: 168px !important;
@@ -48,19 +66,23 @@ ytd-watch-grid #secondary ytd-rich-item-renderer {
         margin-right: 8px !important;
     }
 
+    /* Do not show box */
     ytd-watch-grid #secondary ytd-rich-item-renderer ytd-thumbnail::before {
         display: unset !important;
     }
 
+    /* Elements to be not shown */
     ytd-watch-grid #secondary ytd-rich-item-renderer #avatar-container, ytd-watch-grid #secondary ytd-rich-item-renderer #avatar-link, ytd-watch-grid #secondary ytd-rich-item-renderer #attached-survey, ytd-watch-grid #secondary ytd-rich-item-renderer #details #buttons {
         display: none !important;
     }
 
+    /* Flexible resize container of stuff on right side of thumbnail (#meta, options) */
     ytd-watch-grid #secondary ytd-rich-item-renderer #details {
         width: 10px !important;
         flex: auto !important;
     }
 
+    /* Meta container for video title (h3), info (#metadata-line), resize video text */
     ytd-watch-grid #secondary ytd-rich-item-renderer #meta {
         width: 100% !important;
         font-size: 1.4rem !important;
@@ -69,14 +91,17 @@ ytd-watch-grid #secondary ytd-rich-item-renderer {
         margin-right: 24px !important;
     }
 
+    /* Number of video views */
     ytd-watch-grid #secondary ytd-rich-item-renderer #metadata-line {
         flex-wrap: nowrap !important;
     }
 
+    /* Text */
     ytd-watch-grid #secondary ytd-rich-item-renderer #metadata-line span {
         flex: none;
     }
 
+    /* Text following text */
     ytd-watch-grid #secondary ytd-rich-item-renderer #metadata-line span ~ span {
         flex: auto !important;
         width: 100px;
@@ -85,10 +110,15 @@ ytd-watch-grid #secondary ytd-rich-item-renderer {
         text-overflow: ellipsis !important;
     }
 
+    /* Video title box*/
     ytd-watch-grid #secondary ytd-rich-item-renderer h3 {
         margin: 0px;
     }
 
+/* 
+* Secondary-inner: container of comments, when moved from #secondary (sidebar) -> #primary (bottom)
+* Disable border around comments
+*/
 ytd-watch-grid #primary #secondary-inner {
     margin-top: 10px !important;
     animation: none !important;
@@ -98,25 +128,33 @@ ytd-watch-grid #primary #secondary-inner {
     height: auto;
 }
 
+/* Resize video title */
 ytd-watch-grid #primary #secondary-inner ytd-watch-metadata h1 {
     font-size: 2rem;
     line-height: 2.8rem;
 }
 
+/* Do not show comments on sidebar before they are moved from #secondary -> #primary */
 ytd-watch-grid #secondary #secondary-inner {
     display: none !important;
 }
 
+/* Row with Video channel name, subscribe buttons, stuff */
 ytd-watch-grid #secondary-inner ytd-watch-metadata #owner {
     margin-top: 12px !important;
 }
 
-ytd-watch-grid #secondary-inner ytd-watch-metadata #owner:hover {
-    cursor: unset !important;
-    background-color: unset !important;
-    box-shadow: unset !important;
-}
+    /* Do not show gray box when hovering with mouse */
+    ytd-watch-grid #secondary-inner ytd-watch-metadata #owner:hover {
+        cursor: unset !important;
+        background-color: unset !important;
+        box-shadow: unset !important;
+    }
 
+/*
+* Video description, number of views
+* Gray background and round borders
+*/
 ytd-watch-grid #secondary-inner ytd-watch-metadata #title {
     margin-top: 12px !important;
     background-color: var(--yt-spec-badge-chip-background) !important;
@@ -124,27 +162,33 @@ ytd-watch-grid #secondary-inner ytd-watch-metadata #title {
     border-radius: 12px !important;
 }
 
-ytd-watch-grid #secondary-inner ytd-watch-metadata #title:hover {
-    background-color: var(--yt-spec-badge-chip-background) !important;
-    box-shadow: unset !important;
-}
+    /* Do not show gray box when hovering with mouse */
+    ytd-watch-grid #secondary-inner ytd-watch-metadata #title:hover {
+        background-color: var(--yt-spec-badge-chip-background) !important;
+        box-shadow: unset !important;
+    }
 
+/* Video description: number of views */
 ytd-watch-grid #secondary-inner ytd-watch-metadata ytd-watch-info-text {
     margin-bottom: 0px !important;
 }
 
+/* Subscribe button */
 ytd-watch-grid #primary #subscribe-button {
     margin-left: 8px !important;
 }
 
+/* YouTube open menu button for comments */
 ytd-watch-grid #primary ytd-menu-renderer {
     width: auto !important;
 }
 
+/* Video sidebar stays fixed when scrolling -> not fixed when scrolling */
 ytd-watch-grid #fixed-columns-secondary {
     position: absolute !important;
 }
 
+/* Panels container, e.g. when extending video description */
 ytd-watch-grid #secondary #fixed-secondary {
     position: relative !important;
     top: unset !important;
@@ -156,19 +200,21 @@ ytd-watch-grid #secondary #fixed-secondary {
     animation: slide-up .3s ease-out backwards !important;
 }
 
+/* YouTube live chat */
 ytd-watch-grid #secondary #fixed-secondary #chat-container {
     position: unset !important;
 }
 
+/* Panels that would be fixed when scrolling -> not fixed when scrolling  */
 ytd-watch-grid ytd-playlist-panel-renderer, ytd-watch-grid ytd-engagement-panel-section-list-renderer, ytd-watch-grid #secondary #chat {
     position: relative !important;
     top: unset !important;
     bottom: unset !important;
     margin-bottom: 10px !important;
-    z-index: 10;
     max-height: calc(100vh - var(--ytd-watch-flexy-masthead-height) - var(--ytd-watch-grid-columns-top-margins) - var(--ytd-watch-grid-horizontal-page-margins)) !important;
 }
 
+/* YouTube live chat and section list when extended */
 ytd-watch-grid ytd-engagement-panel-section-list-renderer, ytd-watch-grid #secondary ytd-live-chat-frame:not([collapsed]) {
     height: calc(100vh - var(--ytd-watch-flexy-masthead-height) - var(--ytd-watch-grid-columns-top-margins) - var(--ytd-watch-grid-horizontal-page-margins)) !important;
 }
