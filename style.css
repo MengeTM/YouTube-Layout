@@ -1,9 +1,10 @@
 /* Width of the videos sidebar, needs to be <500 for only one column of videos */
 ytd-watch-grid #secondary {
+    display: block !important;
     --ytd-watch-flexy-sidebar-width: 426px;
 }
 
-/* comments section (bottom) */
+/* Bottom layout area (comments) */
 ytd-watch-grid #secondary #bottom-grid {
     overflow-x: unset !important;
 }
@@ -155,7 +156,7 @@ ytd-watch-grid #secondary-inner ytd-watch-metadata #owner {
 * Video description, number of views
 * Gray background and round borders
 */
-ytd-watch-grid #secondary-inner ytd-watch-metadata #title {
+ytd-watch-grid #secondary-inner ytd-watch-metadata #above-the-fold > #title:has(:not([hidden])) {
     margin-top: 12px !important;
     background-color: var(--yt-spec-badge-chip-background) !important;
     padding: 12px !important;
@@ -163,7 +164,7 @@ ytd-watch-grid #secondary-inner ytd-watch-metadata #title {
 }
 
     /* Do not show gray box when hovering with mouse */
-    ytd-watch-grid #secondary-inner ytd-watch-metadata #title:hover {
+    ytd-watch-grid #secondary-inner ytd-watch-metadata #above-the-fold > #title:hover {
         background-color: var(--yt-spec-badge-chip-background) !important;
         box-shadow: unset !important;
     }
@@ -171,6 +172,11 @@ ytd-watch-grid #secondary-inner ytd-watch-metadata #title {
 /* Video description: number of views */
 ytd-watch-grid #secondary-inner ytd-watch-metadata ytd-watch-info-text {
     margin-bottom: 0px !important;
+}
+
+/* YouTube video and #below */
+ytd-watch-grid #primary {
+    position: unset !important;
 }
 
 /* Subscribe button */
@@ -200,7 +206,12 @@ ytd-watch-grid #secondary #fixed-secondary {
     animation: slide-up .3s ease-out backwards !important;
 }
 
-/* YouTube chat */
+/* YouTube comments */
+ytd-watch-grid ytd-comments#comments {
+    display: block !important;
+}
+
+/* YouTube sidebar comments */
 ytd-watch-grid #secondary #chat-container {
     position: relative !important;
 }
@@ -220,6 +231,6 @@ ytd-watch-grid ytd-playlist-panel-renderer, ytd-watch-grid ytd-engagement-panel-
 }
 
 /* YouTube live chat and section list when extended */
-ytd-watch-grid ytd-engagement-panel-section-list-renderer, ytd-watch-grid #secondary ytd-live-chat-frame:not([collapsed]) {
+ytd-watch-grid #secondary ytd-live-chat-frame:not([collapsed]) {
     height: calc(100vh - var(--ytd-watch-flexy-masthead-height) - var(--ytd-watch-grid-columns-top-margins) - var(--ytd-watch-grid-horizontal-page-margins)) !important;
 }

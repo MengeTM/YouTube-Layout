@@ -6,7 +6,7 @@ class YouTubeOldLayout {
         const app = document.documentElement;
         this.pageObserver.observe(app, { childList: true, subtree: true, attributes: false });
 
-        this.updateLayout();
+        this.swapLayout();
         this.moveButtons();
         this.updateMetadata();
     }
@@ -14,7 +14,7 @@ class YouTubeOldLayout {
     /**
      * Sets the layout of YouTube video player to old layout
      */
-    async updateLayout() {
+    async swapLayout() {
         const below = document.querySelector("ytd-watch-grid #primary #below");
         const secondary = document.querySelector("ytd-watch-grid #secondary");
     
@@ -35,11 +35,35 @@ class YouTubeOldLayout {
     updateMetadata() {
         const metadata = document.querySelector("ytd-watch-grid #secondary-inner ytd-watch-metadata");
         if (metadata) {
-            const description = metadata.querySelector("#title");
-            const title = metadata.querySelector("#title h1");
+            // Video title, video description, video owner (subscribe button)
+            const title = metadata.querySelector("h1");
+            const description = metadata.querySelector("#description");
             const owner = metadata.querySelector("#owner");
 
-            if (description && title && owner) {
+            // Block click events on owner background
+            if (owner && !owner.querySelector("#yl-block-clicks")) {
+                const blockClicks = document.createElement("div");
+
+                blockClicks.id = "yl-block-clicks";
+                blockClicks.style.position = "absolute";
+                blockClicks.style.top = "0px";
+                blockClicks.style.right = "0px";
+                blockClicks.style.bottom = "0px";
+                blockClicks.style.left = "0px";
+                blockClicks.style.zIndex = "0";
+                blockClicks.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                });
+
+                owner.style.position = "relative";
+                owner.prepend(blockClicks);
+            }
+            // Layout of metadata: #title, #top-row, #middle-row, #bottom-row
+            const rowTitle = metadata.querySelector("#title");
+            const rowTop = metadata.querySelector("#top-row");
+            const rowBottom = metadata.querySelector("#bottom-row");
+            if (description && title && owner && rowTitle.contains(title)) {
                 metadata.prepend(owner);
                 metadata.prepend(title);
             }
@@ -90,7 +114,7 @@ class YouTubeOldLayout {
                 switch (node.id) {
                     case "bottom-grid":
                     case "secondary-inner":
-                        this.updateLayout();
+                        this.swapLayout();
                         break;
                     case "chat-container":
                         this.moveChat();
