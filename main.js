@@ -31,31 +31,46 @@ class YouTubeOldLayout {
     }
 
     /**
+     * Removes event listeners from HTMLElement, should be a DIV element
+     * @param {HTMLDivElement} element Element from which EventListeners are removed
+     * @param {keyof HTMLElementEventMap} type (Optional) Name of EventListener type to be blocked
+     * @return HTMLElement without EventListenrs 
+     */
+    _removeEventListeners(element, type=null) {
+        if (type && element.ylListener) {
+            element.addEventListener(type, element.ylListener);
+            
+            return element;
+        }
+
+        const elementNew = element.cloneNode(false);
+        
+        // Move HTMLElements from element to elementNew
+        while(element.firstChild) {
+            elementNew.appendChild(element.firstChild);
+        }
+
+        if (type) {
+            const listener = (event) => { event.stopImmediatePropagation(); };
+            elementNew.ylListener = listener;
+            elementNew.addEventListener(type, listener);
+        }
+
+        if (element.parentElement) {
+            element.replaceWith(elementNew);
+        }
+
+        return elementNew;
+    } 
+
+    /**
      * Unblocks scrolling for #secondary-inner div
      */
     unblockScrolling() {
         const secondaryInner = document.querySelector("ytd-watch-grid #secondary-inner");
 
         if (secondaryInner) {
-            let ylSecondaryInner = secondaryInner.querySelector("#yl-secondary-inner");
-        
-            // Div that allowes scrolling
-            if (!ylSecondaryInner) {
-                ylSecondaryInner = document.createElement("div");
-                ylSecondaryInner.id = "yl-secondary-inner";
-                ylSecondaryInner.addEventListener("wheel", (event) => { event.stopPropagation(); });
-            }
-
-            if (secondaryInner.contains(ylSecondaryInner)) {
-                secondaryInner.removeChild(ylSecondaryInner);
-            }
-            
-            // Move HTMLElements from #secondaryInner to #yl-secondary-inner
-            while(secondaryInner.firstChild) {
-                ylSecondaryInner.appendChild(secondaryInner.firstChild);
-            }
-    
-            secondaryInner.appendChild(ylSecondaryInner);
+            this._removeEventListeners(secondaryInner, "wheel");
         }
     }
 
@@ -70,26 +85,6 @@ class YouTubeOldLayout {
             const description = metadata.querySelector("#description");
             const owner = metadata.querySelector("#owner");
 
-            // Block click events on owner background
-            if (owner && !owner.querySelector("#yl-block-clicks")) {
-                const blockClicks = document.createElement("div");
-
-                blockClicks.id = "yl-block-clicks";
-                blockClicks.style.position = "absolute";
-                blockClicks.style.top = "0px";
-                blockClicks.style.right = "0px";
-                blockClicks.style.bottom = "0px";
-                blockClicks.style.left = "0px";
-                blockClicks.style.zIndex = "0";
-                blockClicks.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                });
-
-                owner.style.position = "relative";
-                owner.prepend(blockClicks);
-            }
-
             // Layout of metadata: #title, #top-row, #middle-row, #bottom-row
             const rowTitle = metadata.querySelector("#title");
             const rowTop = metadata.querySelector("#top-row");
@@ -97,6 +92,11 @@ class YouTubeOldLayout {
             if (description && title && owner && (rowTitle.contains(title) || rowBottom.contains(owner))) {
                 metadata.prepend(owner);
                 metadata.prepend(title);
+            }
+
+            // Block click events on owner background
+            if (owner) {
+                this._removeEventListeners(owner, "click");
             }
         }
     }

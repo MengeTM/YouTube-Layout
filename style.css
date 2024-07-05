@@ -1,7 +1,7 @@
 /* Width of the videos sidebar, needs to be <500 for only one column of videos */
 ytd-watch-grid #secondary {
     display: block !important;
-    --ytd-watch-flexy-sidebar-width: 426px;
+    --ytd-watch-flexy-sidebar-width: 402px;
 }
 
 /* Bottom layout area (comments) */
