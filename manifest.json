@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "YouTube Swap Comments",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "Do you dislike the new YouTube layout? This add-on will swap the comments and videos back to where they were before 2024.",
 
   "icons": {

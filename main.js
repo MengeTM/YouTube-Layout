@@ -89,11 +89,12 @@ class YouTubeOldLayout {
                 owner.style.position = "relative";
                 owner.prepend(blockClicks);
             }
+
             // Layout of metadata: #title, #top-row, #middle-row, #bottom-row
             const rowTitle = metadata.querySelector("#title");
             const rowTop = metadata.querySelector("#top-row");
             const rowBottom = metadata.querySelector("#bottom-row");
-            if (description && title && owner && rowTitle.contains(title)) {
+            if (description && title && owner && (rowTitle.contains(title) || rowBottom.contains(owner))) {
                 metadata.prepend(owner);
                 metadata.prepend(title);
             }
