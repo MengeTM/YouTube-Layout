@@ -207,7 +207,7 @@ ytd-watch-grid #secondary #fixed-secondary {
 }
 
 /* YouTube comments */
-ytd-watch-grid ytd-comments#comments {
+ytd-watch-grid #fixed-below ~ ytd-comments#comments {
     display: block !important;
 }
 
