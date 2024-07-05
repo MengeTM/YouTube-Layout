@@ -7,6 +7,7 @@ class YouTubeOldLayout {
         this.pageObserver.observe(app, { childList: true, subtree: true, attributes: false });
 
         this.swapLayout();
+        this.unblockScrolling();
         this.moveButtons();
         this.updateMetadata();
     }
@@ -26,6 +27,35 @@ class YouTubeOldLayout {
                 secondaryInner.replaceWith(bottomGrid);
                 below.appendChild(secondaryInner);
             }
+        }
+    }
+
+    /**
+     * Unblocks scrolling for #secondary-inner div
+     */
+    unblockScrolling() {
+        const secondaryInner = document.querySelector("ytd-watch-grid #secondary-inner");
+
+        if (secondaryInner) {
+            let ylSecondaryInner = secondaryInner.querySelector("#yl-secondary-inner");
+        
+            // Div that allowes scrolling
+            if (!ylSecondaryInner) {
+                ylSecondaryInner = document.createElement("div");
+                ylSecondaryInner.id = "yl-secondary-inner";
+                ylSecondaryInner.addEventListener("wheel", (event) => { event.stopPropagation(); });
+            }
+
+            if (secondaryInner.contains(ylSecondaryInner)) {
+                secondaryInner.removeChild(ylSecondaryInner);
+            }
+            
+            // Move HTMLElements from #secondaryInner to #yl-secondary-inner
+            while(secondaryInner.firstChild) {
+                ylSecondaryInner.appendChild(secondaryInner.firstChild);
+            }
+    
+            secondaryInner.appendChild(ylSecondaryInner);
         }
     }
 
@@ -115,9 +145,13 @@ class YouTubeOldLayout {
                     case "bottom-grid":
                     case "secondary-inner":
                         this.swapLayout();
+                        this.unblockScrolling();
                         break;
                     case "chat-container":
                         this.moveChat();
+                        break;
+                    case "comments":
+                        this.unblockScrolling();
                         break;
                     case "playlist":
                         this.movePlaylist();
