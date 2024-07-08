@@ -1,3 +1,8 @@
+/* Swiping down on video moves #secondary */
+ytd-watch-grid {
+    position: unset !important;
+}
+
 /* Width of the videos sidebar, needs to be <500 for only one column of videos */
 ytd-watch-grid #secondary {
     display: block !important;
@@ -114,6 +119,19 @@ ytd-watch-grid #secondary ytd-rich-item-renderer {
     /* Video title box*/
     ytd-watch-grid #secondary ytd-rich-item-renderer h3 {
         margin: 0px;
+    }
+
+    /* Wrap badges (new, live, members only) */
+    ytd-watch-grid #secondary #meta > ytd-badge-supported-renderer {
+        display: flex !important;
+        flex-wrap: wrap;
+        row-gap: 4px;
+    }
+
+    /* Wraps not bage text (new, live, members only) */
+    ytd-watch-grid #secondary #meta > ytd-badge-supported-renderer > div {
+        display: inline-block !important;
+        text-wrap: nowrap;
     }
 
 /* 

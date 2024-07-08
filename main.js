@@ -31,10 +31,10 @@ class YouTubeOldLayout {
     }
 
     /**
-     * Removes event listeners from HTMLElement, should be a DIV element
+     * Removes event listeners from HTMLDivElement, should be a DIV element
      * @param {HTMLDivElement} element Element from which EventListeners are removed
      * @param {keyof HTMLElementEventMap} type (Optional) Name of EventListener type to be blocked
-     * @return HTMLElement without EventListenrs 
+     * @return HTMLDivElement without EventListenrs 
      */
     _removeEventListeners(element, type=null) {
         if (type && element.ylListener) {
@@ -50,6 +50,7 @@ class YouTubeOldLayout {
             elementNew.appendChild(element.firstChild);
         }
 
+        // Blocking all EventListeners
         if (type) {
             const listener = (event) => { event.stopImmediatePropagation(); };
             elementNew.ylListener = listener;
